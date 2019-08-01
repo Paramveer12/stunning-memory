@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "689026180557",
+    "firebase_url": "https://socialmedia-6c043.firebaseio.com",
+    "project_id": "socialmedia-6c043",
+    "storage_bucket": "socialmedia-6c043.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:689026180557:android:fd40d80ac2a41f83",
+        "android_client_info": {
+          "package_name": "com.awesome.Moviedb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "689026180557-ncrl3rds6eicad5gafg45baokp63qq5n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMgKnZ16WvmeV3yhVltbQp5hxOAKvN-BU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "689026180557-ncrl3rds6eicad5gafg45baokp63qq5n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/main_content">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="500dp"
+        android:background="@color/greenprimary">
+
+        <com.google.android.material.appbar.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:collapsedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+
+            app:expandedTitleMarginStart="72dp"
+            app:contentScrim="?attr/colorPrimary"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            >
+
+                <ImageView
+                    android:id="@+id/thumbnail_image_header"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:fitsSystemWindows="true"
+                    android:scaleType="centerCrop"
+                    app:layout_collapseMode="parallax"/>
+
+            <androidx.appcompat.widget.Toolbar
+                android:layout_width="match_parent"
+                android:id="@+id/toolbar"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:navigationIcon="@drawable/ic_arrow_back_black_24dp"
+                app:layout_collapseMode="pin"
+                ></androidx.appcompat.widget.Toolbar>
+
+        </com.google.android.material.appbar.CollapsingToolbarLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="160dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/userrating"
+                android:padding="@dimen/padding_layout"
+                android:layout_marginLeft="@dimen/layout_margin_left"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/releasedate"
+                android:layout_below="@+id/userrating"
+                android:layout_marginLeft="@dimen/layout_margin_left"
+                android:padding="@dimen/padding_layout"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/plotsynopsis"
+                android:layout_below="@+id/releasedate"
+                android:padding="@dimen/padding_layout"
+                android:textSize="20sp"
+                />
+
+            <TextView
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/thumbnailUrl"
+                android:visibility="invisible"/>
+
+            <TextView
+                android:id="@+id/trailer"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="30sp"
+                android:text="Trailers"
+                />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view1"
+                android:layout_width="368dp"
+                android:layout_height="wrap_content"
+                android:clipToPadding="false"
+                android:scrollbars="vertical"
+                android:layout_below="@+id/plotsynopsis"/>
+        </RelativeLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
