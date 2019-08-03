@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+        <EditText
+            android:id="@+id/search_bar"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:hint="Search"
+            android:layout_weight="7"
+            android:textSize="23sp"
+            android:iconifiedByDefault="true">
+        </EditText>
+        <ImageView
+            android:id="@+id/searchbtn"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:background="@color/white"
+            android:layout_marginEnd="15dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:src="@drawable/ic_search_black_24dp"
+            android:layout_height="match_parent" />
+        </LinearLayout>
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclersearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+</LinearLayout>

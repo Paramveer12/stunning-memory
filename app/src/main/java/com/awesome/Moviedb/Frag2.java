@@ -53,13 +53,13 @@ public class Frag2 extends Fragment {
         view = inflater.inflate(R.layout.frag2, container, false);
         recycler = view.findViewById(R.id.recycler);
         refreshLayout = view.findViewById(R.id.main_content);
-        initViews("Rate");
+        initViews();
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_orange_dark);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                initViews("Rate");
+                initViews();
                 Toast.makeText(getActivity(), "Movies Refreshed", Toast.LENGTH_SHORT).show();
             }
         });
@@ -68,7 +68,7 @@ public class Frag2 extends Fragment {
     }
 
 
-    public void initViews(String s) {
+    public void initViews() {
         progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Fetching.....");
         progressDialog.setCancelable(false);
@@ -76,8 +76,6 @@ public class Frag2 extends Fragment {
 
         if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.INTERNET)
                 != PackageManager.PERMISSION_GRANTED) {
-            // Permission is not granted
-            // Ask for permision
             ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.INTERNET}, 1);
         } else {
 
@@ -95,11 +93,11 @@ public class Frag2 extends Fragment {
             recycler.setAdapter(adapter);
             adapter.notifyDataSetChanged();
 
-            loadJSON(s);
+            loadJSON();
         }
     }
 
-    public void loadJSON(String s) {
+    public void loadJSON() {
         try {
             if (BuildConfig.THE_MOVIE_DB_API_TOKEN.isEmpty()) {
                 Toast.makeText(getActivity(), "Please obtain API key", Toast.LENGTH_SHORT).show();
@@ -109,7 +107,7 @@ public class Frag2 extends Fragment {
             Call<moviesresponse> call;
             client Client = new client();
             service apiservice = Client.getClients().create(service.class);
-            call = apiservice.getTopratedMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN);
+            call = apiservice.getTopratedMovies(BuildConfig.THE_MOVIE_DB_API_TOKEN,"en-US","false","vote_count.desc","en");
 
             call.enqueue(new Callback<moviesresponse>() {
                 @Override

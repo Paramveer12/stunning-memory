@@ -117,7 +117,7 @@
 
 
                     <EditText
-                        android:id="@+id/usernamebox"
+                        android:id="@+id/unbox"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -146,7 +146,7 @@
 
 
                     <EditText
-                        android:id="@+id/reg_email_et"
+                        android:id="@+id/emailbox"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -175,7 +175,7 @@
 
 
                     <EditText
-                        android:id="@+id/passwordbox"
+                        android:id="@+id/passwordsign"
                         style="@style/Font_family_light"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -202,7 +202,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/reg_button_join_us"
+                    android:id="@+id/register"
                     style="@style/Font_family_regular"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

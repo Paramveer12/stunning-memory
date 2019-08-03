@@ -1,9 +1,10 @@
 package com.awesome.Moviedb;
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.ContextWrapper;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -11,6 +12,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity  extends AppCompatActivity  {
     TabLayout tabLayout;
@@ -18,6 +20,7 @@ public class MainActivity  extends AppCompatActivity  {
     TabItem poptab, ratetab;
     PageAdapter pageAdapter;
     ViewPager viewPager;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle saveInstanceState) {
@@ -30,6 +33,7 @@ public class MainActivity  extends AppCompatActivity  {
 
         tabLayout = findViewById(R.id.tablayout);
         poptab = findViewById(R.id.poptab);
+        mAuth = FirebaseAuth.getInstance();
         ratetab = findViewById(R.id.ratetab);
         viewPager = findViewById(R.id.viewpager);
 
@@ -60,20 +64,37 @@ public class MainActivity  extends AppCompatActivity  {
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }
 
-    public Activity getActivity(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
 
-        Context context = this;
-        while (context instanceof ContextWrapper){
-            if (context instanceof Activity){
-                return (Activity) context;
-            }
-            context = ((ContextWrapper) context).getBaseContext();
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                return true;
+            case R.id.signout:
+                mAuth.signOut();
+                startActivity(new Intent(MainActivity.this,Login.class));
+                return true;
+
+            case R.id.search_button:
+                startActivity(new Intent(MainActivity.this,Search.class));
+
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return null;
     }
 
 
-    }
+
+
+
+}
 
 
 

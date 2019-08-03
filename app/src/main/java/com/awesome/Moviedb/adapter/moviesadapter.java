@@ -22,6 +22,9 @@ public class moviesadapter extends RecyclerView.Adapter<moviesadapter.MyViewHold
 
     private Context mContext;
     private List<movie> moviesList;
+    private static final int ITEM = 0;
+    private static final int LOADING = 1;
+    private boolean isLoadingAdded = false;
 
     public moviesadapter(Context mContext,List<movie> moviesList){
         this.mContext = mContext;

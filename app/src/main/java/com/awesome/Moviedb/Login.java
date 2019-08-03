@@ -3,8 +3,6 @@ package com.awesome.Moviedb;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -47,115 +44,35 @@ public class Login extends AppCompatActivity {
             }
         });
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-
-    private void signIn(String email, String password) {
-        Log.d("login", "signIn:" + email);
-        if (!validateForm()) {
-            return;
+        if(mAuth.getCurrentUser() != null){
+            login();
         }
 
-        showProgressDialog();
-        // [START sign_in_with_email]
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d("login","signInWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w("login","signInWithEmail:failure", task.getException());
-                            Toast.makeText(Login.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
+        loginbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mAuth.signInWithEmailAndPassword(mEmailField.getText().toString(), mPasswordField.getText().toString())
+                        .addOnCompleteListener(Login.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    login();
+                                } else {
+                                    Toast.makeText(Login.this, "Incorrect Email or Password", Toast.LENGTH_SHORT).show();
+                                    mDetailTextView.setText("Sign up if you don't already have account");
+                                }
 
-                        // [START_EXCLUDE]
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                        }
-                        hideProgressDialog();
-                        // [END_EXCLUDE]
-                    }
-                });
-        // [END sign_in_with_email]
+                            }
+                        });
+
+            }
+        });
+        
     }
 
-    private void signOut() {
-        mAuth.signOut();
-        updateUI(null);
-    }
-
-    private boolean validateForm() {
-        boolean valid = true;
-
-        String email = mEmailField.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            mEmailField.setError("Required.");
-            valid = false;
-        } else {
-            mEmailField.setError(null);
-        }
-
-        String password = mPasswordField.getText().toString();
-        if (TextUtils.isEmpty(password)) {
-            mPasswordField.setError("Required.");
-            valid = false;
-        } else {
-            mPasswordField.setError(null);
-        }
-
-        return valid;
+    private void login() {
+        startActivity(new Intent(Login.this,MainActivity.class));
     }
 
 
-    private void updateUI(FirebaseUser user) {
-        hideProgressDialog();
-        if (user != null) {
-            mStatusTextView.setText(getString(R.string.emailpassword_status_fmt,
-                    user.getEmail(), user.isEmailVerified()));
-            mDetailTextView.setText(getString(R.string.firebase_status_fmt, user.getUid()));
-
-            findViewById(R.id.emailPasswordButtons).setVisibility(View.GONE);
-            findViewById(R.id.emailPasswordFields).setVisibility(View.GONE);
-            findViewById(R.id.signedInButtons).setVisibility(View.VISIBLE);
-
-            findViewById(R.id.verifyEmailButton).setEnabled(!user.isEmailVerified());
-        } else {
-            mStatusTextView.setText(R.string.signed_out);
-            mDetailTextView.setText(null);
-
-            findViewById(R.id.emailPasswordButtons).setVisibility(View.VISIBLE);
-            findViewById(R.id.emailPasswordFields).setVisibility(View.VISIBLE);
-            findViewById(R.id.signedInButtons).setVisibility(View.GONE);
-        }
-    }
-
-    public void showProgressDialog() {
-        if (mProgressDialog == null) {
-            mProgressDialog = new ProgressDialog(this);
-            mProgressDialog.setMessage(getString(R.string.loading));
-            mProgressDialog.setIndeterminate(true);
-        }
-
-        mProgressDialog.show();
-    }
-
-    public void hideProgressDialog() {
-        if (mProgressDialog != null && mProgressDialog.isShowing()) {
-            mProgressDialog.dismiss();
-        }
-    }
 }
